@@ -1,1 +1,1 @@
-# pipeline-processing
+# Pipeline Coordinator
