@@ -10,7 +10,7 @@ using MouseLight.Core.Model;
 
 namespace MouseLight.Core.Data
 {
-    public partial class PipelineContext : DbContext
+    public class PipelineContext : DbContext
     {
         public PipelineContext()
         {
@@ -42,8 +42,6 @@ namespace MouseLight.Core.Data
 
             modelBuilder.Entity<PipelineStage>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.UserParameters).HasDefaultValueSql("'{}'::text");
 
                 entity.HasOne(d => d.PreviousStage)
@@ -62,20 +60,8 @@ namespace MouseLight.Core.Data
                     .HasConstraintName("PipelineStages_task_id_fkey");
             });
 
-            modelBuilder.Entity<PipelineStageFunction>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-            });
-
-            modelBuilder.Entity<PipelineWorker>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-            });
-
             modelBuilder.Entity<Project>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.Property(e => e.Description).HasDefaultValueSql("''::text");
 
                 entity.Property(e => e.InputSourceState).HasDefaultValueSql("0");
@@ -95,22 +81,11 @@ namespace MouseLight.Core.Data
 
             modelBuilder.Entity<TaskDefinition>(entity =>
             {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-
                 entity.HasOne(d => d.TaskRepository)
                     .WithMany(p => p.TaskDefinitions)
                     .HasForeignKey(d => d.TaskRepositoryId)
                     .HasConstraintName("TaskDefinitions_task_repository_id_fkey");
             });
-
-            modelBuilder.Entity<TaskRepository>(entity =>
-            {
-                entity.Property(e => e.Id).ValueGeneratedNever();
-            });
-
-            OnModelCreatingPartial(modelBuilder);
         }
-
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
