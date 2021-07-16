@@ -32,7 +32,7 @@ namespace MouseLight.Core.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseNpgsql("Host=localhost;Port=6510;Database=pipeline_production;Username=postgres;Password=pgsecret");
+                // optionsBuilder.UseNpgsql("Host=localhost;Port=6510;Database=pipeline_production;Username=postgres;Password=pgsecret");
             }
         }
 
