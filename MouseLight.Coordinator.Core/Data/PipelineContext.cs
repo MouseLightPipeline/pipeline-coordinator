@@ -12,14 +12,9 @@ namespace MouseLight.Core.Data
 {
     public class PipelineContext : DbContext
     {
-        public PipelineContext()
-        {
-        }
+        public PipelineContext() { }
 
-        public PipelineContext(DbContextOptions<PipelineContext> options)
-            : base(options)
-        {
-        }
+        public PipelineContext(DbContextOptions<PipelineContext> options) : base(options) { }
 
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<PipelineStage> PipelineStages { get; set; }

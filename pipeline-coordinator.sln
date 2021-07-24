@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.810.6
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "update-monitor", "update-monitor\update-monitor.csproj", "{97C48696-F2C4-424D-814F-894E4D5D9393}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "update-monitor", "update-monitor\update-monitor.csproj", "{9DB7465F-0F32-4CB9-87D3-5975DDA9D32C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "coordinator-core", "coordinator-core\coordinator-core.csproj", "{A84A6AC3-5A28-4188-B193-836A0CD4EAB7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MouseLight.Coordinator.Core", "MouseLight.Coordinator.Core\MouseLight.Coordinator.Core.csproj", "{47225D9A-B285-43F7-9B77-16FC085DA2F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MouseLight.Coordinator.MessageQueue", "MouseLight.Coordinator.MessageQueue\MouseLight.Coordinator.MessageQueue.csproj", "{969B7FA6-5D76-41FD-876B-B6A4CEC73C7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,14 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{97C48696-F2C4-424D-814F-894E4D5D9393}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{97C48696-F2C4-424D-814F-894E4D5D9393}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{97C48696-F2C4-424D-814F-894E4D5D9393}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{97C48696-F2C4-424D-814F-894E4D5D9393}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A84A6AC3-5A28-4188-B193-836A0CD4EAB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A84A6AC3-5A28-4188-B193-836A0CD4EAB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A84A6AC3-5A28-4188-B193-836A0CD4EAB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A84A6AC3-5A28-4188-B193-836A0CD4EAB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DB7465F-0F32-4CB9-87D3-5975DDA9D32C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DB7465F-0F32-4CB9-87D3-5975DDA9D32C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DB7465F-0F32-4CB9-87D3-5975DDA9D32C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DB7465F-0F32-4CB9-87D3-5975DDA9D32C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47225D9A-B285-43F7-9B77-16FC085DA2F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47225D9A-B285-43F7-9B77-16FC085DA2F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47225D9A-B285-43F7-9B77-16FC085DA2F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47225D9A-B285-43F7-9B77-16FC085DA2F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{969B7FA6-5D76-41FD-876B-B6A4CEC73C7C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{969B7FA6-5D76-41FD-876B-B6A4CEC73C7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{969B7FA6-5D76-41FD-876B-B6A4CEC73C7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{969B7FA6-5D76-41FD-876B-B6A4CEC73C7C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -31,7 +37,7 @@ Global
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
-		$1.DirectoryNamespaceAssociation = Hierarchical
+		$1.DirectoryNamespaceAssociation = PrefixedHierarchical
 		$0.TextStylePolicy = $2
 		$2.inheritsSet = null
 		$2.scope = text/x-csharp

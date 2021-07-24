@@ -14,11 +14,13 @@
     <None Remove="Npgsql.EntityFrameworkCore.PostgreSQL" />
     <None Remove="Service\" />
     <None Remove="Microsoft.EntityFrameworkCore.Relational" />
+    <None Remove="Threading\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
     <Folder Include="Data\" />
     <Folder Include="Service\" />
+    <Folder Include="Threading\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.8">

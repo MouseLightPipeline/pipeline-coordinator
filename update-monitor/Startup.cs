@@ -14,10 +14,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
+using MouseLight.Coordinator.MessageQueue.TaskUpdate;
 using MouseLight.Core.Data;
 using MouseLight.Core.Service;
+using MouseLight.UpdateMonitor.Service;
 
-namespace update_monitor
+namespace MouseLight.UpdateMonitor
 {
     public class Startup
     {
@@ -31,12 +33,24 @@ namespace update_monitor
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<PipelineContextOptions>(Configuration.GetSection(PipelineContextOptions.PipelineContext));
+
             services.AddControllers();
 
-            services.AddDbContext<PipelineContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("PipelineDatabase")));
+            services.AddDbContext<PipelineContext>((serviceProvider, options) => options.UseNpgsql(serviceProvider.GetService<PipelineContextConnection>().ConnectionString));
+
+            services.AddSingleton<PipelineContextConnection>();
 
             services.AddScoped<ProjectService>();
+
+            services.AddSingleton<TaskUpdateMessageQueueMonitor>((serviceProvider) =>
+            {
+                return new TaskUpdateMessageQueueMonitor(serviceProvider.GetRequiredService<TaskUpdateWorkQueue>(), serviceProvider.GetRequiredService<IHostApplicationLifetime>().ApplicationStopping, serviceProvider.GetService<ILogger<TaskUpdateMessageQueueMonitor>>());
+            });
+
+            services.AddSingleton<TaskUpdateWorkQueue>();
+
+            services.AddHostedService<TaskUpdateMessageService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

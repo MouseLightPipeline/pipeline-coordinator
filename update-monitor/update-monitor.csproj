@@ -11,14 +11,21 @@
     <None Remove="Microsoft.EntityFrameworkCore" />
     <None Remove="Npgsql.EntityFrameworkCore.PostgreSQL" />
     <None Remove="Microsoft.EntityFrameworkCore.Design" />
+    <None Remove="Service\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.8" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.7" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\coordinator-core\coordinator-core.csproj">
+    <ProjectReference Include="..\MouseLight.Coordinator.Core\MouseLight.Coordinator.Core.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\MouseLight.Coordinator.MessageQueue\MouseLight.Coordinator.MessageQueue.csproj">
+      <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Service\" />
   </ItemGroup>
 </Project>

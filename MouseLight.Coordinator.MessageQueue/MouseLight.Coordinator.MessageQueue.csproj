@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>MouseLight.Coordinator.MessageQueue</RootNamespace>
+    <ReleaseVersion>1.6</ReleaseVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="TaskUpdate\" />
+    <None Remove="RabbitMQ.Client" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="TaskUpdate\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MouseLight.Coordinator.Core\MouseLight.Coordinator.Core.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="RabbitMQ.Client" Version="6.2.2" />
+  </ItemGroup>
+</Project>

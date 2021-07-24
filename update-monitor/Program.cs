@@ -2,18 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace update_monitor
+using MouseLight.Coordinator.MessageQueue.TaskUpdate;
+
+namespace MouseLight.UpdateMonitor
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            using var host = CreateHostBuilder(args).Build();
+
+            await host.StartAsync();
+
+            host.Services.GetRequiredService<TaskUpdateMessageQueueMonitor>().Start();
+
+            await host.WaitForShutdownAsync();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
