@@ -11,12 +11,9 @@ namespace MouseLight.Core.Model
         public Guid Id { get; set; }
 
         [Column("created_at", TypeName = "timestamp with time zone")]
-        public DateTime? CreatedAt { get; set; }
+        public DateTime? WhenCreated { get; set; }
 
         [Column("updated_at", TypeName = "timestamp with time zone")]
-        public DateTime? UpdatedAt { get; set; }
-
-        [Column("deleted_at", TypeName = "timestamp with time zone")]
-        public DateTime? DeletedAt { get; set; }
+        public DateTime? WhenUpdated { get; set; }
     }
 }

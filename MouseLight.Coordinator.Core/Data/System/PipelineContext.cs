@@ -12,22 +12,34 @@ namespace MouseLight.Core.Data
 {
     public class PipelineContext : DbContext
     {
+        public virtual DbSet<Project> Projects { get; set; }
+
+        public virtual DbSet<PipelineStage> PipelineStages { get; set; }
+
+        public virtual DbSet<TaskDefinition> TaskDefinitions { get; set; }
+
+        public virtual DbSet<TaskRepository> TaskRepositories { get; set; }
+
+        public virtual DbSet<PipelineWorker> PipelineWorkers { get; set; }
+
+        public virtual DbSet<PipelineStageFunction> PipelineStageFunctions { get; set; }
+
+        private readonly PipelineContextOptions _contextOptions;
+
         public PipelineContext() { }
 
         public PipelineContext(DbContextOptions<PipelineContext> options) : base(options) { }
 
-        public virtual DbSet<Project> Projects { get; set; }
-        public virtual DbSet<PipelineStage> PipelineStages { get; set; }
-        public virtual DbSet<TaskDefinition> TaskDefinitions { get; set; }
-        public virtual DbSet<TaskRepository> TaskRepositories { get; set; }
-        public virtual DbSet<PipelineWorker> PipelineWorkers { get; set; }
-        public virtual DbSet<PipelineStageFunction> PipelineStageFunctions { get; set; }
+        public PipelineContext(PipelineContextOptions options)
+        {
+            _contextOptions = options;
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
+            if (!optionsBuilder.IsConfigured && _contextOptions != null)
             {
-                // optionsBuilder.UseNpgsql("Host=localhost;Port=6510;Database=pipeline_production;Username=postgres;Password=pgsecret");
+                optionsBuilder.UseNpgsql(PipelineContextConnection.ForOptions(_contextOptions).ConnectionString);
             }
         }
 

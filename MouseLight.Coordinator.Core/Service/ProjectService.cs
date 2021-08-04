@@ -16,9 +16,19 @@ namespace MouseLight.Core.Service
             _dbContext = pipelineContext;
         }
 
+        public Project GetProject(Guid id)
+        {
+            return _dbContext.Projects.FirstOrDefault(p => p.Id == id);
+        }
+
         public IReadOnlyList<Project> GetProjects()
         {
             return _dbContext.Projects.ToList();
+        }
+
+        public Guid? ProjectIdForStage(Guid id)
+        {
+            return _dbContext.PipelineStages.FirstOrDefault(s => s.Id == id)?.ProjectId;
         }
     }
 }

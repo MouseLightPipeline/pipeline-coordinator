@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MouseLight.Core.Model
 {
-    public class PipelineStage : PersistentModel
+    public class PipelineStage : PersistentSoftDeleteModel
     {
         public PipelineStage()
         {

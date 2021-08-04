@@ -7,13 +7,9 @@ namespace MouseLight.Coordinator.MessageQueue.TaskUpdate
 {
     public class TaskUpdatePublisher
     {
-        public TaskUpdatePublisher()
-        {
-        }
-
         public void Start()
         {
-            Task.Run(async () => await PublishAsync());
+            // Task.Run(async () => await PublishAsync());
         }
 
         private async Task PublishAsync()
@@ -24,15 +20,13 @@ namespace MouseLight.Coordinator.MessageQueue.TaskUpdate
 
             using var channel = connection.CreateModel();
 
-            channel.QueueDeclare(queue: "TaskExecutionUpdateQueue", durable: false, exclusive: false);
+            channel.QueueDeclare(queue: "TaskExecutionUpdateQueue", durable: false, exclusive: false, autoDelete: false);
             
             while (/*!_cancellationToken.IsCancellationRequested*/ true)
             {
                 await Task.Delay(5000);
 
                 channel.BasicPublish(exchange: "", routingKey: "TaskExecutionUpdateQueue", basicProperties: null, body: Encoding.UTF8.GetBytes("Hello World"));
-
-                //await _taskQueue.EnqueueAsync(new TaskUpdateWorkItem());
             }
             
         }

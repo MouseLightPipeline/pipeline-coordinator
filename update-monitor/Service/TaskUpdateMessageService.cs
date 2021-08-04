@@ -6,6 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using MouseLight.Coordinator.MessageQueue.TaskUpdate;
+using MouseLight.Core.Service;
 
 namespace MouseLight.UpdateMonitor.Service
 {
@@ -13,11 +14,15 @@ namespace MouseLight.UpdateMonitor.Service
     {
         public TaskUpdateWorkQueue TaskQueue { get; }
 
+        private readonly TaskExecutionConnectorService _taskExecutionConnector;
+
         private readonly ILogger _logger;
 
-        public TaskUpdateMessageService(TaskUpdateWorkQueue queue, ILogger<TaskUpdateMessageService> logger)
+        public TaskUpdateMessageService(TaskUpdateWorkQueue queue, TaskExecutionConnectorService taskExecutionConnector, ILogger<TaskUpdateMessageService> logger)
         {
             TaskQueue = queue;
+
+            _taskExecutionConnector = taskExecutionConnector;
 
             _logger = logger;
         }
@@ -37,7 +42,11 @@ namespace MouseLight.UpdateMonitor.Service
             {
                 var item = await TaskQueue.DequeueAsync(token);
 
-                _logger.LogInformation("processing item");
+                var service = await _taskExecutionConnector.ForStage(item.PipelineStageId);
+
+                service.ProcessUpdate(item);
+
+                _logger.LogInformation("processeditem");
             }
         }
     }

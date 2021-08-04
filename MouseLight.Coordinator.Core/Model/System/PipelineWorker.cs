@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MouseLight.Core.Model
 {
-    public class PipelineWorker : PersistentModel
+    public class PipelineWorker : PersistentSoftDeleteModel
     {
         [Column("worker_id")]
         public Guid? WorkerId { get; set; }

@@ -15,12 +15,20 @@
     <None Remove="Service\" />
     <None Remove="Microsoft.EntityFrameworkCore.Relational" />
     <None Remove="Threading\" />
+    <None Remove="Data\Project\" />
+    <None Remove="Model\System\" />
+    <None Remove="Model\Activity\" />
+    <None Remove="Data\System\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
     <Folder Include="Data\" />
     <Folder Include="Service\" />
     <Folder Include="Threading\" />
+    <Folder Include="Data\Activity\" />
+    <Folder Include="Model\System\" />
+    <Folder Include="Model\Activity\" />
+    <Folder Include="Data\System\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.8">

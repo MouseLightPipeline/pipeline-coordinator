@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MouseLight.Core.Model
 {
-    public class TaskRepository : PersistentModel
+    public class TaskRepository : PersistentSoftDeleteModel
     { 
         public TaskRepository()
         {

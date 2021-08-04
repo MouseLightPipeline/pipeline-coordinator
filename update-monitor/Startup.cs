@@ -13,9 +13,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 
 using MouseLight.Coordinator.MessageQueue.TaskUpdate;
 using MouseLight.Core.Data;
+using MouseLight.Core.Data.Activity;
 using MouseLight.Core.Service;
 using MouseLight.UpdateMonitor.Service;
 
@@ -43,6 +45,8 @@ namespace MouseLight.UpdateMonitor
 
             services.AddScoped<ProjectService>();
 
+            services.AddSingleton<TaskExecutionConnectorService>();
+
             services.AddSingleton<TaskUpdateMessageQueueMonitor>((serviceProvider) =>
             {
                 return new TaskUpdateMessageQueueMonitor(serviceProvider.GetRequiredService<TaskUpdateWorkQueue>(), serviceProvider.GetRequiredService<IHostApplicationLifetime>().ApplicationStopping, serviceProvider.GetService<ILogger<TaskUpdateMessageQueueMonitor>>());
@@ -54,7 +58,7 @@ namespace MouseLight.UpdateMonitor
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IOptions<PipelineContextOptions> contextOptions)
         {
             if (env.IsDevelopment())
             {
@@ -71,6 +75,18 @@ namespace MouseLight.UpdateMonitor
             {
                 endpoints.MapControllers();
             });
+
+            /*
+            var opts = contextOptions.Value;
+
+            opts.Database = "f106e72c-a43e-4baf-a6f0-2395a22a65c6";
+
+            using var db = new ProjectDbContext(opts);
+
+            var set = db.Set<InProcessTile>("55c2a6d6-5c2b-4f42-81d9-45f81b4308f9_InProcesses");
+
+            Debug.WriteLine("done");
+            */
         }
     }
 }

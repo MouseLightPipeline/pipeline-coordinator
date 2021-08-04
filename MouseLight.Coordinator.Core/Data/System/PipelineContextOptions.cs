@@ -17,5 +17,14 @@ namespace MouseLight.Core.Data
         public string Password { get; set; }
 
         public PipelineContextOptions() { }
+
+        public PipelineContextOptions CloneWithDatabaseName(string database)
+        {
+            var options = (PipelineContextOptions)MemberwiseClone();
+
+            options.Database = database;
+
+            return options;
+        }
     }
 }

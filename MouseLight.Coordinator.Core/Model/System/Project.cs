@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace MouseLight.Core.Model
 {
-    public class Project : PersistentModel
+    public class Project : PersistentSoftDeleteModel
     {
         public Project()
         {
