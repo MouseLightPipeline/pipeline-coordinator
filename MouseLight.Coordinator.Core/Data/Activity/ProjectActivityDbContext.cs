@@ -2,11 +2,19 @@
 
 using Microsoft.EntityFrameworkCore;
 
+using MouseLight.Core.Model.Activity;
+
 namespace MouseLight.Core.Data.Activity
 {
-    public class ProjectActivityDbContext: DbContext
+    public class ProjectActivityDbContext : DbContext
     {
+        public virtual DbSet<ActivityTile> Tile { get; set; }
+
         public virtual DbSet<InProcessTile> InProcess { get; set; }
+
+        public virtual DbSet<ToProcessTile> ToProcess { get; set; }
+
+        public virtual DbSet<TaskExecution> TaskExecution { get; set; }
 
         private readonly PipelineContextOptions _options;
 

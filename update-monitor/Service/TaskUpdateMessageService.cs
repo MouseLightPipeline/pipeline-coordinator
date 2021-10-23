@@ -31,7 +31,7 @@ namespace MouseLight.UpdateMonitor.Service
         {
             var publisher = new TaskUpdatePublisher();
 
-            publisher.Start();
+            publisher.Start(cancellationToken);
 
             await ProcessMessagesAsync(cancellationToken);
         }
@@ -42,12 +42,14 @@ namespace MouseLight.UpdateMonitor.Service
             {
                 var item = await TaskQueue.DequeueAsync(token);
 
-                var service = await _taskExecutionConnector.ForStage(item.PipelineStageId);
+                var service = await _taskExecutionConnector.ForProject(item.ProjectId);
 
-                service.ProcessUpdate(item);
+                service?.ProcessUpdate(item);
 
                 _logger.LogInformation("processeditem");
             }
+
+            _logger?.LogInformation("process message cancelled");
         }
     }
 }

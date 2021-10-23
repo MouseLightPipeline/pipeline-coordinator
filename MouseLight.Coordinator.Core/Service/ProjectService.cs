@@ -30,5 +30,24 @@ namespace MouseLight.Core.Service
         {
             return _dbContext.PipelineStages.FirstOrDefault(s => s.Id == id)?.ProjectId;
         }
+
+        public Project CreateOrFind(Guid id)
+        {
+            var project = GetProject(id);
+
+            if (project == null)
+            {
+                project = new Project
+                {
+                    Id = id
+                };
+
+                _dbContext.Projects.Add(project);
+
+                _dbContext.SaveChanges();
+            }
+
+            return project;
+        }
     }
 }

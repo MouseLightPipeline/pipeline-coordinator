@@ -19,6 +19,7 @@
     <None Remove="Model\System\" />
     <None Remove="Model\Activity\" />
     <None Remove="Data\System\" />
+    <None Remove="Model\Activity\Message\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
@@ -29,6 +30,7 @@
     <Folder Include="Model\System\" />
     <Folder Include="Model\Activity\" />
     <Folder Include="Data\System\" />
+    <Folder Include="Model\Activity\Message\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.8">

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
+
+using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using MouseLight.Core.Data;
+using MouseLight.Core.Model;
 using MouseLight.Core.Service;
 
 namespace MouseLight.Coordinator.Tests.Service
@@ -13,6 +16,10 @@ namespace MouseLight.Coordinator.Tests.Service
         private static PipelineContextOptions _options;
 
         private static TaskExecutionConnectorService _taskExecutionServiceConnector;
+
+        private static Guid _projectId;
+
+        private static Project _project;
 
         [ClassInitialize()]
         public static void ClassInit(TestContext context)
@@ -26,15 +33,25 @@ namespace MouseLight.Coordinator.Tests.Service
                 Password = "pgsecret"
             };
 
-            _taskExecutionServiceConnector = new TaskExecutionConnectorService(_options);
+            _taskExecutionServiceConnector = new TaskExecutionConnectorService(Options.Create(_options));
+
+            _projectId = Guid.NewGuid();
         }
 
         [TestMethod]
         public async Task TestCreateTable()
         {
-            var service = await _taskExecutionServiceConnector.ForStage(Guid.Parse("55c2a6d6-5c2b-4f42-81d9-45f81b4308f9"));
+            using var db = new PipelineContext(_options);
+
+            var projectService = new ProjectService(db);
+
+            projectService.CreateOrFind(_projectId);
+
+            var service = await _taskExecutionServiceConnector.ForProject(_projectId);
 
             Assert.IsNotNull(service);
+
+            _taskExecutionServiceConnector.Drop(_projectId);
         }
     }
 }

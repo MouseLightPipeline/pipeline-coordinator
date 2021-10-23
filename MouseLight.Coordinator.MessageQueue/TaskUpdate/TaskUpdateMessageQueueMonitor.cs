@@ -5,9 +5,12 @@ using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
-using MouseLight.Core.Model;
+
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+
+using MouseLight.Core.Model.Activity;
+using MouseLight.Core.Model.Activity.Message;
 
 namespace MouseLight.Coordinator.MessageQueue.TaskUpdate
 {
@@ -51,7 +54,7 @@ namespace MouseLight.Coordinator.MessageQueue.TaskUpdate
 
                 _consumer.Received += async (model, args) =>
                 {
-                    var taskExecution = JsonSerializer.Deserialize<TaskExecution>(Encoding.UTF8.GetString(args.Body.ToArray()));
+                    var taskExecution = JsonSerializer.Deserialize<TaskExecutionUpdateMessage>(Encoding.UTF8.GetString(args.Body.ToArray()));
 
                     await _taskQueue.EnqueueAsync(taskExecution);
 
@@ -67,7 +70,7 @@ namespace MouseLight.Coordinator.MessageQueue.TaskUpdate
 
             while (!_cancellationToken.IsCancellationRequested)
             {
-                await Task.Delay(60000, _cancellationToken);
+                await Task.Delay(int.MaxValue, _cancellationToken);
             }
         }
     }

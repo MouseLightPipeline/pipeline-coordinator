@@ -3,12 +3,12 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-using MouseLight.Core.Model;
-
-namespace MouseLight.Core.Data.Activity
+namespace MouseLight.Core.Model.Activity
 {
     public class ActivityTile : PersistentModel
     {
+        public Guid InputTileId { get; set; }
+
         [Column("stage_id")]
         public Guid StageId { get; set; }
 

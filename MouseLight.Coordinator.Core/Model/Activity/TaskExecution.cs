@@ -1,7 +1,9 @@
 ﻿using System;
-using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MouseLight.Core.Model
+using MouseLight.Core.Model.Activity.Message;
+
+namespace MouseLight.Core.Model.Activity
 {
     public enum TaskExecutionStatus
     {
@@ -25,92 +27,107 @@ namespace MouseLight.Core.Model
 
     public class TaskExecution
     {
-        [JsonPropertyName("id")]
+        [Column("id")]
         public Guid Id {get; set; }
 
-        [JsonPropertyName("worker_id")]
-        public Guid WorkerId { get; set; }
-
-        [JsonPropertyName("remote_task_execution_id")]
-        public Guid RemoteTaskExecutionId { get; set; }
-
-        [JsonPropertyName("tile_id")]
-        public string TileId;
-
-        [JsonPropertyName("task_definition_id")]
-        public Guid TaskDefinitionId { get; set; }
-
-        [JsonPropertyName("pipeline_stage_id")]
+        [Column("pipeline_stage_id")]
         public Guid PipelineStageId { get; set; }
 
-        [JsonPropertyName("queue_type")]
+        [Column("tile_id")]
+        public Guid TileId;
+
+        [Column("worker_id")]
+        public Guid WorkerId { get; set; }
+
+        [Column("task_definition_id")]
+        public Guid TaskDefinitionId { get; set; }
+
+        [Column("queue_type")]
         public WorkQueueKind WorkerQueueType { get; set; }
 
-        [JsonPropertyName("")]
+        [Column("local_work_units")]
         public int LocalWorkUnits { get; set; }
 
-        [JsonPropertyName("cluster_work_units")]
+        [Column("cluster_work_units")]
         public int ClusterWorkUnits { get; set; }
 
-        [JsonPropertyName("resolved_output_path")]
+        [Column("resolved_output_path")]
         public string ResolvedOutputPath { get; set; }
 
-        [JsonPropertyName("resolved_script")]
+        [Column("resolved_script")]
         public string ResolvedScript { get; set; }
 
-        [JsonPropertyName("resolved_interpreter")]
+        [Column("resolved_interpreter")]
         public string ResolvedInterpreter { get; set; }
 
-        [JsonPropertyName("resolved_script_args")]
+        [Column("resolved_script_args")]
         public string ResolvedScriptArgs { get; set; }
 
-        [JsonPropertyName("resolved_cluster_args")]
+        [Column("resolved_cluster_args")]
         public string ResolvedClusterArgs { get; set; }
 
-        [JsonPropertyName("resolved_log_path")]
+        [Column("resolved_log_path")]
         public string ResolvedLogPath { get; set; }
 
-        [JsonPropertyName("expected_exit_code")]
+        [Column("expected_exit_code")]
         public int ExpectedExitCode { get; set; }
 
-        [JsonPropertyName("job_id")]
+        [Column("job_id")]
         public int? JobId { get; set; }
 
-        [JsonPropertyName("job_name")]
+        [Column("job_name")]
         public string JobName { get; set; }
 
-        [JsonPropertyName("execution_status_code")]
+        [Column("execution_status_code")]
         public TaskExecutionStatus ExecutionStatus { get; set; }
 
-        [JsonPropertyName("completion_status_code")]
+        [Column("completion_status_code")]
         public TaskCompletionResult CompletionResult { get; set; }
 
-        [JsonPropertyName("last_process_status_code")]
+        [Column("last_process_status_code")]
         public int LastProcessStatusCode { get; set; }
 
-        [JsonPropertyName("cpu_time_seconds")]
+        [Column("cpu_time_seconds")]
         public double? CpuTimeSeconds { get; set; }
 
-        [JsonPropertyName("max_cpu_percent")]
+        [Column("max_cpu_percent")]
         public double? MaxCpuPercent { get; set; }
 
-        [JsonPropertyName("max_memory_mb")]
+        [Column("max_memory_mb")]
         public double? MaxMemoryMB { get; set; }
 
-        [JsonPropertyName("exit_code")]
+        [Column("exit_code")]
         public int? ExitCode { get; set; }
 
-        [JsonPropertyName("submitted_at")]
+        [Column("submitted_at")]
         public DateTime WhenSubmitted { get; set; }
 
-        [JsonPropertyName("started_at")]
+        [Column("started_at")]
         public DateTime? WhenStarted { get; set; }
 
-        [JsonPropertyName("synchronized_at")]
+        [Column("completed_at")]
         public DateTime? WhenCompleted { get; set; }
 
-        public TaskExecution()
+        public TaskExecution() { }
+
+        public TaskExecution(TaskExecutionUpdateMessage message)
         {
+            Id = message.Id;
+
+            Update(message);
+        }
+
+        public void Update(TaskExecutionUpdateMessage message)
+        {
+            JobId = message.JobId;
+            JobName = message.JobName;
+            ExecutionStatus = message.ExecutionStatus;
+            LastProcessStatusCode = message.LastProcessStatusCode;
+            CpuTimeSeconds = message.CpuTimeSeconds;
+            MaxCpuPercent = message.MaxCpuPercent;
+            MaxMemoryMB = message.MaxMemoryMB;
+            WhenSubmitted = message.WhenSubmitted;
+            WhenStarted = message.WhenStarted;
         }
     }
 }
